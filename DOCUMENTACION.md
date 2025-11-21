@@ -10,10 +10,9 @@
 7. [Almacenamiento de Datos](#almacenamiento-de-datos)
 8. [Diseño Responsive](#diseño-responsive)
 9. [Panel de Administrador](#panel-de-administrador)
-10. [Guía de Instalación](#guía-de-instalación)
-11. [Manual de Usuario](#manual-de-usuario)
-12. [Consideraciones Técnicas](#consideraciones-técnicas)
-13. [Posibles Mejoras Futuras](#posibles-mejoras-futuras)
+10. [Manual de Usuario](#manual-de-usuario)
+11. [Consideraciones Técnicas](#consideraciones-técnicas)
+12. [Posibles Mejoras Futuras](#posibles-mejoras-futuras)
 
 ---
 
