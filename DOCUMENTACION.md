@@ -7,12 +7,11 @@
 4. [Estructura del Proyecto](#estructura-del-proyecto)
 5. [Funcionalidades Implementadas](#funcionalidades-implementadas)
 6. [Sistema de Autenticación](#sistema-de-autenticación)
-7. [Almacenamiento de Datos](#almacenamiento-de-datos)
-8. [Diseño Responsive](#diseño-responsive)
-9. [Panel de Administrador](#panel-de-administrador)
-10. [Manual de Usuario](#manual-de-usuario)
-11. [Consideraciones Técnicas](#consideraciones-técnicas)
-12. [Posibles Mejoras Futuras](#posibles-mejoras-futuras)
+7. [Diseño Responsive](#diseño-responsive)
+8. [Panel de Administrador](#panel-de-administrador)
+9. [Manual de Usuario](#manual-de-usuario)
+10. [Consideraciones Técnicas](#consideraciones-técnicas)
+11. [Posibles Mejoras Futuras](#posibles-mejoras-futuras)
 
 ---
 
