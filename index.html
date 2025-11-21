@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Fitness - Mantén tus datos seguros</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="loginScreen" class="login-screen">
+        <div class="logo-container">
+            <div class="logo">
+                <div class="logo-inner">
+                    <svg viewBox="0 0 24 24" fill="white">
+                        <path d="M12 4c-4 0-6 2-6 5 0 4 6 9 6 9s6-5 6-9c0-3-2-5-6-5z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="welcome-text">
+            <h1>Bienvenido a Mi Fitness</h1>
+            <p>Mantén tus datos seguros</p>
+        </div>
+
+        <div class="login-form">
+            <div class="input-group">
+                <input type="text" id="username" class="input-field" placeholder="Usuario">
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" class="input-field" placeholder="Contraseña">
+            </div>
+            <button class="login-btn" onclick="login()">INICIAR SESIÓN</button>
+        </div>
+
+        <div class="register-link">
+            ¿Nuevo usuario? <a href="#" onclick="showRegisterModal()">Crear cuenta</a>
+        </div>
+    </div>
+
+    <div id="dashboard" class="dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div>
+                        <div style="font-weight: 600;" id="userName">Usuario</div>
+                        <div style="font-size: 12px; color: #999;">Bienvenido de nuevo</div>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">Salir</button>
+            </div>
+
+            <!-- Navegación de fechas -->
+            <div class="date-navigation">
+                <button class="date-nav-btn" onclick="changeDate(-1)"> < </button>
+                <div class="date-selector" onclick="openDatePicker()">
+                    <div class="date-display" id="dateDisplay">Hoy</div>
+                    <input type="date" id="dateSelector" onchange="selectDate()">
+                </div>
+                <button class="date-nav-btn" onclick="changeDate(1)"> > </button>
+            </div>
+
+            <!-- Botones de control -->
+            <div class="control-buttons">
+                <button class="control-btn stats-btn" onclick="showWeeklyStats()"> Estadísticas</button>
+                <button class="control-btn reset-btn" onclick="showResetModal()">Reiniciar</button>
+            </div>
+
+            <!-- Dashboard Content Grid -->
+            <div class="dashboard-content">
+                <div class="main-cards">
+            <!-- Tarjeta de Salud -->
+            <div class="card">
+                <div class="card-header">
+                    <svg class="icon" viewBox="0 0 24 24" fill="#ef4444">
+                        <path d="M12 3c-1 0-2 1-2 2v4h-4c-1 0-2 1-2 2s1 2 2 2h4v4c0 1 1 2 2 2s2-1 2-2v-4h4c1 0 2-1 2-2s-1-2-2-2h-4V5c0-1-1-2-2-2z"/>
+                    </svg>
+                    <h2>Salud</h2>
+                </div>
+                <div class="donut-container">
+                    <svg class="donut-chart" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="#fbbf24" stroke-width="20" 
+                                stroke-dasharray="33 220" stroke-dashoffset="-0" transform="rotate(-90 50 50)"/>
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="#8b5cf6" stroke-width="20" 
+                                stroke-dasharray="66 220" stroke-dashoffset="-33" transform="rotate(-90 50 50)"/>
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="#60a5fa" stroke-width="20" 
+                                stroke-dasharray="33 220" stroke-dashoffset="-99" transform="rotate(-90 50 50)"/>
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="#22d3ee" stroke-width="20" 
+                                stroke-dasharray="44 220" stroke-dashoffset="-132" transform="rotate(-90 50 50)"/>
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="#fda4af" stroke-width="20" 
+                                stroke-dasharray="44 220" stroke-dashoffset="-176" transform="rotate(-90 50 50)"/>
+                        <circle cx="50" cy="50" r="20" fill="#1a1a1a"/>
+                    </svg>
+                </div>
+                <div style="text-align: center; color: #999; font-size: 14px;">
+                    Pasos: <span id="steps" style="color: white; font-weight: 600;">8,450</span> / 10,000
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="stepsProgress" style="width: 84.5%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de Agua -->
+            <div class="card" onclick="openWaterModal()">
+                <div class="card-header">
+                    <svg class="icon" viewBox="0 0 24 24" fill="#22d3ee">
+                        <path d="M12 2c-2 2-6 6-6 10 0 3 3 6 6 6s6-3 6-6c0-4-4-8-6-10z"/>
+                    </svg>
+                    <h2>Agua</h2>
+                </div>
+                <div class="water-wave">
+                    <svg class="wave" viewBox="0 0 1200 100" preserveAspectRatio="none">
+                        <path d="M0,50 Q150,20 300,50 T600,50 T900,50 T1200,50 L1200,100 L0,100 Z" fill="#22d3ee" opacity="0.3"/>
+                        <path d="M0,60 Q200,30 400,60 T800,60 T1200,60 L1200,100 L0,100 Z" fill="#22d3ee" opacity="0.5"/>
+                    </svg>
+                </div>
+                <div style="text-align: center; margin-top: 16px;">
+                    <div style="font-size: 32px; font-weight: bold;" id="waterAmount">1.5</div>
+                    <div style="color: #999; font-size: 14px;">litros de 2.5L objetivo</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="waterProgress" style="width: 60%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de Sueño -->
+            <div class="card" onclick="openSleepModal()">
+                <div class="card-header">
+                    <svg class="icon" viewBox="0 0 24 24" fill="#a78bfa">
+                        <path d="M20 10c-2 0-4 2-4 4 0 4-2 6-4 6s-4-2-4-6c0-2-2-4-4-4 0 6 4 10 8 10s8-4 8-10z"/>
+                    </svg>
+                    <h2>Sueño</h2>
+                </div>
+                <div class="sleep-chart" id="sleepChart"></div>
+            </div>
+
+                </div>
+                <div class="sidebar-cards">
+            <!-- Cuadrícula de Ejercicio y Alimentación -->
+            <div class="grid-cards">
+                <div class="grid-card" onclick="openExerciseModal()">
+                    <svg viewBox="0 0 24 24" fill="#ec4899">
+                        <path d="M6 4h2v4h8V4h2v16h-2v-4H8v4H6V4zm2 6v4h8v-4H8z"/>
+                    </svg>
+                    <span style="font-weight: 600;">Ejercicio</span>
+                    <span style="font-size: 12px; color: #999;" id="exerciseTime">30 min hoy</span>
+                </div>
+                <div class="grid-card" onclick="openFoodModal()">
+                    <svg viewBox="0 0 24 24" fill="#fb923c">
+                        <path d="M12 2L8 6v6c0 2 2 4 4 4s4-2 4-4V6l-4-4zm-1 4h2v6c0 1-1 2-2 2s-2-1-2-2V6h2zm6 6c-1 0-2 1-2 2v6h2v-6c0-1 1-2 2-2h1v-2h-3z"/>
+                    </svg>
+                    <span style="font-weight: 600;">Alimentación</span>
+                    <span style="font-size: 12px; color: #999;" id="caloriesCount">1,650 kcal</span>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Agua -->
+    <div id="waterModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Consumo de Agua</h3>
+                <button class="close-btn" onclick="closeModal('waterModal')">&times;</button>
+            </div>
+            <div class="stat-item">
+                <div>
+                    <div class="stat-label">Total hoy</div>
+                    <div class="stat-value" id="modalWaterAmount">1.5 L</div>
+                </div>
+                <div style="text-align: right;">
+                    <div class="stat-label">Objetivo</div>
+                    <div class="stat-value">2.5 L</div>
+                </div>
+            </div>
+            <div class="input-with-unit">
+                <input type="number" id="waterInput" class="input-field" placeholder="Cantidad" step="0.1" value="0.25">
+                <div class="unit">Litros</div>
+            </div>
+            <button class="add-btn" onclick="addWater()">Agregar Agua</button>
+        </div>
+    </div>
+
+    <!-- Modal de Sueño -->
+    <div id="sleepModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Registro de Sueño</h3>
+                <button class="close-btn" onclick="closeModal('sleepModal')">&times;</button>
+            </div>
+            <div class="stat-item">
+                <div>
+                    <div class="stat-label">Promedio semanal</div>
+                    <div class="stat-value" id="avgSleep">7.2 hrs</div>
+                </div>
+                <div style="text-align: right;">
+                    <div class="stat-label">Última noche</div>
+                    <div class="stat-value" id="lastSleep">8 hrs</div>
+                </div>
+            </div>
+            <div class="input-with-unit">
+                <input type="number" id="sleepInput" class="input-field" placeholder="Horas" step="0.5" value="8">
+                <div class="unit">Horas</div>
+            </div>
+            <button class="add-btn" onclick="addSleep()">Registrar Sueño</button>
+        </div>
+    </div>
+
+    <!-- Modal de Ejercicio -->
+    <div id="exerciseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Ejercicio</h3>
+                <button class="close-btn" onclick="closeModal('exerciseModal')">&times;</button>
+            </div>
+            <div class="stat-item">
+                <div>
+                    <div class="stat-label">Tiempo total hoy</div>
+                    <div class="stat-value" id="totalExerciseTime">30 min</div>
+                </div>
+                <div style="text-align: right;">
+                    <div class="stat-label">Calorías quemadas</div>
+                    <div class="stat-value" id="caloriesBurned">250 kcal</div>
+                </div>
+            </div>
+            <div class="input-group">
+                <select id="exerciseType" class="input-field">
+                    <option value="">Tipo de ejercicio</option>
+                    <option value="cardio">Cardio</option>
+                    <option value="pesas">Pesas</option>
+                    <option value="yoga">Yoga</option>
+                    <option value="correr">Correr</option>
+                    <option value="nadar">Nadar</option>
+                    <option value="ciclismo">Ciclismo</option>
+                </select>
+            </div>
+            <div class="input-with-unit">
+                <input type="number" id="exerciseMinutes" class="input-field" placeholder="Duración" value="30">
+                <div class="unit">Min</div>
+            </div>
+            <button class="add-btn" onclick="addExercise()">Registrar Ejercicio</button>
+        </div>
+    </div>
+
+    <!-- Modal de Alimentación -->
+    <div id="foodModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Alimentación</h3>
+                <button class="close-btn" onclick="closeModal('foodModal')">&times;</button>
+            </div>
+            <div class="stat-item">
+                <div>
+                    <div class="stat-label">Calorías consumidas</div>
+                    <div class="stat-value" id="totalCalories">1,650 kcal</div>
+                </div>
+                <div style="text-align: right;">
+                    <div class="stat-label">Objetivo diario</div>
+                    <div class="stat-value">2,000 kcal</div>
+                </div>
+            </div>
+            <div class="progress-bar" style="margin-bottom: 20px;">
+                <div class="progress-fill" id="caloriesProgress" style="width: 82.5%"></div>
+            </div>
+            <div class="input-group">
+                <input type="text" id="foodName" class="input-field" placeholder="Nombre de la comida">
+            </div>
+            <div class="input-with-unit">
+                <input type="number" id="foodCalories" class="input-field" placeholder="Calorías" value="300">
+                <div class="unit">kcal</div>
+            </div>
+            <button class="add-btn" onclick="addFood()">Agregar Comida</button>
+            
+            <div class="meal-list" id="mealList"></div>
+        </div>
+    </div>
+
+    <!-- Modal de Estadísticas Semanales -->
+    <div id="statsModal" class="modal">
+        <div class="modal-content stats-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Estadísticas Semanales</h3>
+                <button class="close-btn" onclick="closeModal('statsModal')">&times;</button>
+            </div>
+            <div id="weeklyStatsContent">
+                <!-- Contenido generado dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Reinicio -->
+    <div id="resetModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Reiniciar Datos</h3>
+                <button class="close-btn" onclick="closeModal('resetModal')">&times;</button>
+            </div>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <p style="color: #ef4444; margin-bottom: 10px;">ADVERTENCIA: Esta acción no se puede deshacer</p>
+                <p style="color: #999;">¿Estás seguro de que quieres eliminar todos los datos guardados?</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button class="cancel-btn" onclick="closeModal('resetModal')">Cancelar</button>
+                <button class="confirm-reset-btn" onclick="confirmReset()">Sí, Reiniciar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Registro -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">📝 Crear Cuenta Nueva</h3>
+                <button class="close-btn" onclick="closeModal('registerModal')">&times;</button>
+            </div>
+            <div class="register-form">
+                <div class="input-group">
+                    <input type="text" id="regDisplayName" class="input-field" placeholder="Nombre completo">
+                </div>
+                <div class="input-group">
+                    <input type="text" id="regUsername" class="input-field" placeholder="Nombre de usuario">
+                </div>
+                <div class="input-group">
+                    <input type="email" id="regEmail" class="input-field" placeholder="Correo electrónico">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="regPassword" class="input-field" placeholder="Contraseña">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="regPasswordConfirm" class="input-field" placeholder="Confirmar contraseña">
+                </div>
+                <button class="register-btn" onclick="register()">CREAR CUENTA</button>
+                <div class="login-link">
+                    ¿Ya tienes cuenta? <a href="#" onclick="closeModal('registerModal')">Inicia sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel de Administrador -->
+    <div id="adminPanel" class="admin-panel">
+        <div class="container">
+            <div class="admin-header">
+                <div class="admin-info">
+                    <div class="admin-avatar">A</div>
+                    <div>
+                        <div class="admin-title">Panel de Administrador</div>
+                        <div class="admin-subtitle">Gestión del sistema</div>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">Salir</button>
+            </div>
+
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">U</div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="totalUsers">0</div>
+                        <div class="stat-label">Usuarios Registrados</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">A</div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="activeUsers">0</div>
+                        <div class="stat-label">Usuarios Activos</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">D</div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="dataSize">0</div>
+                        <div class="stat-label">Datos Almacenados (KB)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-controls">
+                <div class="control-section">
+                    <h3>Gestión de Usuarios</h3>
+                    <div class="admin-buttons">
+                        <button class="admin-control-btn" onclick="showUsersList()">Ver Usuarios</button>
+                        <button class="admin-control-btn" onclick="exportData()">Exportar Datos</button>
+                        <button class="admin-control-btn danger" onclick="showDeleteUsersModal()">Eliminar Usuario</button>
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h3>Mantenimiento del Sistema</h3>
+                    <div class="admin-buttons">
+                        <button class="admin-control-btn" onclick="clearOldData()">Limpiar Datos Antiguos</button>
+                        <button class="admin-control-btn" onclick="generateReport()">Generar Reporte</button>
+                        <button class="admin-control-btn danger" onclick="showResetSystemModal()">Reiniciar Sistema</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="users-list" id="usersList">
+                <h3>Lista de Usuarios</h3>
+                <div id="usersTable">
+                    <!-- Los usuarios se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para confirmar eliminación de usuario -->
+    <div id="deleteUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Eliminar Usuario</h2>
+                <button class="close-btn" onclick="closeModal('deleteUserModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Selecciona el usuario que deseas eliminar:</p>
+                <select id="userToDelete" class="user-select">
+                    <option value="">Seleccionar usuario...</option>
+                </select>
+                <p class="warning-text">ADVERTENCIA: Esta acción no se puede deshacer</p>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" onclick="closeModal('deleteUserModal')">Cancelar</button>
+                <button class="delete-btn" onclick="confirmDeleteUser()">Eliminar Usuario</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para reiniciar sistema -->
+    <div id="resetSystemModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Reiniciar Sistema</h2>
+                <button class="close-btn" onclick="closeModal('resetSystemModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas reiniciar completamente el sistema?</p>
+                <p class="warning-text">PELIGRO: Esto eliminará TODOS los usuarios y datos. Esta acción no se puede deshacer.</p>
+                <div class="confirmation-input">
+                    <label>Escribe "CONFIRMAR" para continuar:</label>
+                    <input type="text" id="confirmationText" placeholder="CONFIRMAR">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" onclick="closeModal('resetSystemModal')">Cancelar</button>
+                <button class="delete-btn" onclick="confirmResetSystem()">Reiniciar Sistema</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
